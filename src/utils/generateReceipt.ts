@@ -55,7 +55,7 @@ export const generateReceipt = async (data: ReceiptData): Promise<void> => {
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   let y = 55;
-  
+
   const addDetailRow = (label: string, value: string) => {
     doc.setFont('helvetica', 'bold');
     doc.text(label, margin, y);
@@ -77,7 +77,7 @@ export const generateReceipt = async (data: ReceiptData): Promise<void> => {
   doc.text('DEVICE INFORMATION', margin, y);
   y += 6;
   doc.setFont('helvetica', 'normal');
-  
+
   addDetailRow('Device Model:', data.device);
   addDetailRow('IMEI:', data.imei);
   addDetailRow('Service:', data.service);

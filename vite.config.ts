@@ -11,4 +11,8 @@ export default defineConfig({
     host: '0.0.0.0', // or your local IP, e.g. '192.168.1.100'
     port: 5175,      // any free port you want to use
   },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+  }
 })
