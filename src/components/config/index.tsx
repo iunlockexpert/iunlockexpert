@@ -14,7 +14,7 @@ if (!projectId) {
 export const metadata = {
   name: 'iUnlockExpert',
   description: 'iUnlockExpert Website',
-  url: 'https://dowody.github.io/iunlockexpert/', // origin must match your domain & subdomain
+  url: 'https://iunlockexpert.github.io/web/', // origin must match your domain & subdomain
   icons: ['https://avatars.githubusercontent.com/u/179229932']
 }
 
