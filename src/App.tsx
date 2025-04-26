@@ -44,6 +44,9 @@ function App() {
         <Route path="/services/mdm-bypass" element={<MdmBypassPage />} />
         <Route path="/services/sim-unlock" element={<SimUnlockPage />} />
         <Route path="/imei-check" element={<IMEICheckPage />} />
+        
+        {/* Catch-all route that redirects to home page */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <WhatsAppButton />
     </>
