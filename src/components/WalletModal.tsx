@@ -111,5 +111,4 @@ export default function WalletModal({ isOpen, onClose }: WalletModalProps) {
         </>
       )}
     </AnimatePresence>
-  );
-} 
+  )};
