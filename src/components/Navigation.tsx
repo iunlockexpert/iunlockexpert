@@ -30,7 +30,7 @@ export default function Navigation() {
               transition={{ type: "spring", stiffness: 400 }}
             >
               <img 
-                src="/iunlockexpert/logo2.png" 
+                src="/logo2.png" 
                 alt="iUnlockExpert Logo" 
                 className="w-45 h-10 md:w-45 md:h-10"
                 

@@ -43,7 +43,7 @@ export default function WhatsAppButton({
     >
       {/* <MessageCircle className="w-8 h-8 md:w-8 md:h-8" /> */}
       <img 
-        src="/iunlockexpert/whatsapp.png" 
+        src="/whatsapp.png" 
         alt="WhatsApp" 
         className="w-8 h-8 md:w-8 md:h-8 invert" 
       />

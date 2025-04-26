@@ -326,7 +326,7 @@ const HomePage: React.FC = () => {
             <div className="flex flex-col items-center justify-center mb-6">
               <div className="flex space-x-4 mb-4">
                 <img 
-                  src="/iunlockexpert/trustpilot-logo.png" 
+                  src="/trustpilot-logo.png" 
                   alt="TrustPilot Logo" 
                   className="h-20 mb-5"
                 />
@@ -414,7 +414,7 @@ const HomePage: React.FC = () => {
               <span className="text-gray-600 font-semibold">4.8 out of 5</span>
 
                 <img 
-                  src="/iunlockexpert/stars-5.svg" 
+                  src="/stars-5.svg" 
                   alt="TrustPilot Logo" 
                   className="h-7"
                 />
