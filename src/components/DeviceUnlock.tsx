@@ -1301,7 +1301,7 @@ export default function DeviceUnlock() {
                     }
                     
                     if (!imeiValidation && !emailValidation) {
-                      setStep(4);
+                      setStep(5);
                     }
                   }}
                   className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
