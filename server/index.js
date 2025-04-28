@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import http from 'http';
 import WebSocket from 'ws';
 import { processMessage } from './chatbot'; 
+import fs from 'fs';
+import path from 'path';
 
 dotenv.config();
 
@@ -15,6 +17,12 @@ const clients = new Map();
 
 app.use(cors());
 app.use(express.json());
+
+// Serve sitemap.xml directly
+app.get('/sitemap.xml', (req, res) => {
+  res.setHeader('Content-Type', 'application/xml');
+  res.sendFile(path.join(__dirname, '../public/sitemap.xml'));
+});
 
 // WebSocket server logic
 wss.on('connection', (ws) => {
