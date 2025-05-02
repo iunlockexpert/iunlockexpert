@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Mail, MessageSquare } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function TermsAndConditions() {
   return (
@@ -70,9 +71,38 @@ export default function TermsAndConditions() {
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-3">9. Contact Information</h2>
-              <p>For questions about these terms or our services, please contact our support team at support@iunlockexpert.com or call 1-800-UNLOCK-PRO.</p>
-            </section>
+  <h2 className="text-xl font-semibold mb-6">Contact Support</h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="bg-gray-100 p-5 rounded-lg flex items-center space-x-4">
+      <Mail className="w-10 h-10 text-blue-600" />
+      <div>
+        <h3 className="font-medium mb-2">Email Support</h3>
+        <a 
+          href="mailto:support@iunlockexpert.com" 
+          className="text-gray-700 hover:text-blue-600 transition-colors"
+        >
+          support@iunlockexpert.com
+        </a>
+      </div>
+    </div>
+    
+    <div className="bg-gray-100 p-5 rounded-lg flex items-center space-x-4">
+      <MessageSquare className="w-10 h-10 text-green-600" />
+      <div>
+        <h3 className="font-medium mb-2">WhatsApp Support</h3>
+        <a 
+          href="https://wa.me/15793860596" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-gray-700 hover:text-green-600 transition-colors"
+        >
+          +1 (579) 386-0596
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
           </div>
 
           <div className="mt-8 pt-6 border-t text-sm text-gray-500">
