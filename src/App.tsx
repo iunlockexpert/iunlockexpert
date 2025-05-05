@@ -1,56 +1,164 @@
-import React from 'react';
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import HomePage from './components/HomePage';
-import DeviceUnlock from './components/DeviceUnlock';
-import TermsAndConditions from './components/TermsAndConditions';
-import OrderStatus from './components/OrderStatus';
-import DeviceCatalog from './components/DeviceCatalog';
-import Help from './components/Help';
+import React, { Suspense, useState, useCallback, useEffect } from 'react'
+import { 
+  BrowserRouter as Router, 
+  Routes, 
+  Route, 
+  Navigate, 
+  useLocation,
+  useNavigate 
+} from 'react-router-dom'
+import { CartProvider } from './components/context/CartContext'
+import Header from './components/Header'
+import CartDropdown from './components/CartDropdown'
+import { supabase } from './lib/supabaseClient'
 
-import Services from './components/Services';
-import IcloudUnlockPage from './components/icloudUnlockPage';
-import MdmBypassPage from './components/MdmBypassPage';
-import SimUnlockPage from './components/SimUnlockPage';
-import IMEICheckPage from './components/IMEICheckPage';
-import WhatsAppButton from './components/WhatsAppButton';
+// Import components directly to ensure they load
+import Home from './components/Home'
+import SignInPage from './components/SignInPage'
+import CheckoutPage from './components/CheckoutPage'
+import TermsOfService from './components/TermsOfService'
+import PrivacyPolicy from './components/PrivacyPolicy'
+import RefundPolicy from './components/RefundPolicy'
+import PolicyPage from './components/PolicyPage'
+import UserDashboard from './components/UserDashboard'
 
-function ScrollToTop() {
-  const { pathname } = useLocation();
+// Loading Spinner Component
+const LoadingSpinner = () => (
+  <div className="fixed inset-0 flex items-center justify-center bg-[#0a0415] z-50">
+    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#8a4fff]"></div>
+  </div>
+)
 
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+// Authentication Wrapper Component
+const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
+  const location = useLocation()
 
-  return null;
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      
+      if (session) {
+        setIsAuthenticated(true)
+      } else {
+        navigate('/signin', { 
+          state: { 
+            from: location.pathname,
+            message: 'Please sign in to access this page' 
+          }
+        })
+      }
+      setIsLoading(false)
+    }
+
+    checkAuth()
+  }, [navigate, location])
+
+  if (isLoading) {
+    return <LoadingSpinner />
+  }
+
+  return isAuthenticated ? <>{children}</> : null
 }
 
 function App() {
-  return (
-    <>
-      <ScrollToTop />
-      <div className="fixed top-4 right-4 z-50">
-        {/* You can add the WhatsApp button here */}
-      </div>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/unlock/:model" element={<DeviceUnlock />} />
-        <Route path="/terms" element={<TermsAndConditions />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/order-status" element={<OrderStatus />} />
-        <Route path="/device-catalog" element={<DeviceCatalog />} />
-        <Route path="/help" element={<Help />} />
+  const [isCartOpen, setIsCartOpen] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-        <Route path="/services/icloud-unlock" element={<IcloudUnlockPage />} />
-        <Route path="/services/mdm-bypass" element={<MdmBypassPage />} />
-        <Route path="/services/sim-unlock" element={<SimUnlockPage />} />
-        <Route path="/imei-check" element={<IMEICheckPage />} />
-        
-        {/* Catch-all route that redirects to home page */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-      <WhatsAppButton />
-    </>
-  );
+  // Check authentication status
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      setIsAuthenticated(!!session)
+    }
+
+    checkAuthStatus()
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setIsAuthenticated(!!session)
+      }
+    )
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [])
+
+  useEffect(() => {
+    const openCartHandler = () => {
+      setIsCartOpen(true)
+    }
+
+    const closeCartHandler = () => {
+      setIsCartOpen(false)
+    }
+
+    window.addEventListener('openCart', openCartHandler)
+    window.addEventListener('closeCart', closeCartHandler)
+
+    return () => {
+      window.removeEventListener('openCart', openCartHandler)
+      window.removeEventListener('closeCart', closeCartHandler)
+    }
+  }, [])
+
+  const toggleCart = useCallback(() => {
+    setIsCartOpen(prevState => !prevState)
+  }, [])
+
+  const closeCart = useCallback(() => {
+    setIsCartOpen(false)
+  }, [])
+
+  return (
+    <Router>
+      <CartProvider>
+        <div className="bg-[#0a0415] text-white min-h-screen">
+          <Header onCartToggle={toggleCart} />
+          <CartDropdown 
+            isOpen={isCartOpen} 
+            onClose={closeCart} 
+          />
+          
+          <Suspense fallback={<LoadingSpinner />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route 
+                path="/signin" 
+                element={
+                  isAuthenticated ? <Navigate to="/" replace /> : <SignInPage />
+                } 
+              />
+              <Route 
+                path="/checkout" 
+                element={
+                  <PrivateRoute>
+                    <CheckoutPage />
+                  </PrivateRoute>
+                } 
+              />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/refund" element={<RefundPolicy />} />
+              <Route path="/policy" element={<PolicyPage />} />
+              <Route 
+                path="/dashboard" 
+                element={
+                  <PrivateRoute>
+                    <UserDashboard />
+                  </PrivateRoute>
+                } 
+              />
+            </Routes>
+          </Suspense>
+        </div>
+      </CartProvider>
+    </Router>
+  )
 }
 
-export default App;
+export default App

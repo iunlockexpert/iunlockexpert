@@ -99,7 +99,7 @@ const benefits = [
   {
     icon: Users,
     title: "Proven Experience",
-    description: "Over 5 million successful unlocks and counting."
+    description: "Over 50,000 successful unlocks and counting."
   }
 ];
 

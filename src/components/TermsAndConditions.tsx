@@ -42,28 +42,42 @@ export default function TermsAndConditions() {
 
             <section>
               <h2 className="text-xl font-semibold mb-3">4. Refund Policy</h2>
-              <p>We offer a 100% money-back guarantee if we cannot unlock your device. Refund requests must be submitted within 30 days of purchase. Refunds will be processed using the original payment method.</p>
+              <p>Due to the nature of our digital unlocking services, we do not offer refunds once the service has been initiated. Our team carefully assesses each unlock request before processing, and the service fee covers our technical expertise and processing costs. By purchasing our service, you acknowledge and accept that no refunds will be provided after the unlock attempt has begun.</p>
+              <p className="mt-2 text-sm text-gray-600">We recommend carefully reviewing your device's compatibility and our service terms before making a purchase.</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-3">5. Privacy & Data Protection</h2>
+              <h2 className="text-xl font-semibold mb-3">5. Cancellation Policy</h2>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-semibold mb-2">5.1 Timeframe</h3>
+                  <p>Orders may be canceled only if the order processing has not been initiated yet or if the order is not completed within the estimated timeframe stated on the product page. Once the order has been completed, the Cancellation Policy is superseded by the Refund Policy.</p>
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-2">5.2 Cancellation Notice</h3>
+                  <p>Cancellation requests must be sent by email to <a href="mailto:support@iunlockexpert.com" className="text-blue-600 hover:underline">support@iunlockexpert.com</a> including the Order # and/or IMEI to be canceled.</p>
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold mb-3">6. Privacy & Data Protection</h2>
               <p>We collect and process personal data in accordance with our Privacy Policy. Your IMEI and contact information are used solely for providing the unlocking service and will not be shared with third parties except as required to complete the service.</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-3">6. Warranty & Support</h2>
+              <h2 className="text-xl font-semibold mb-3">7. Warranty & Support</h2>
               <p>Our unlocking service is permanent and survives software updates. We provide technical support for 60 days after service delivery. The warranty does not cover physical damage or software modifications made to the device.</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-3">7. Legal Compliance</h2>
+              <h2 className="text-xl font-semibold mb-3">8. Legal Compliance</h2>
               <p>Our unlocking methods comply with all applicable laws and regulations. We do not unlock devices that are reported stolen or involved in fraudulent activities.</p>
             </section>
 
             <section>
-              <h2 className="text-xl font-semibold mb-3">8. Service Limitations</h2>
+              <h2 className="text-xl font-semibold mb-3">9. Service Limitations</h2>
               <ul className="list-disc pl-5 space-y-2">
-                <li>We cannot remove iCloud locks or bypass device security features</li>
                 <li>Success rates may vary based on device model and carrier</li>
                 <li>Some features may remain carrier-locked after unlocking</li>
                 <li>We reserve the right to refuse service for any reason</li>
